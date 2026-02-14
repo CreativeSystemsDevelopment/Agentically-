@@ -73,16 +73,18 @@ The repository contains placeholders for **6 AI agent projects**, categorized by
 
 ## Current Status
 
-⚠️ **Note**: All repository directories currently exist as **empty placeholders**. The actual repository content has not yet been populated. This structure is designed to eventually house complete clones of each project with their full commit history and content.
+⚠️ **Note**: All repository directories currently exist as **empty placeholders**. The actual repository content has not yet been populated. This structure is intended to house the content from each respective project in the CreativeSystemsDevelopment ecosystem.
 
 ## Portal Directory
 
 **Status**: Not yet created
 
-The portal directory is planned as a future platform component that will:
+The portal directory is a planned future component that will serve as a platform to:
 - Bridge user interaction with the various agent repositories
 - Provide a unified interface for accessing and managing different agent frameworks
 - Enable cross-repository workflows and integrations
+
+This component is in the planning phase with no specific implementation timeline yet established.
 
 ## Repository Categories Summary
 
