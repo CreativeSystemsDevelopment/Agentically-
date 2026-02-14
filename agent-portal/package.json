@@ -1,0 +1,18 @@
+{
+  "name": "agent-portal",
+  "version": "1.0.0",
+  "description": "Agent Portal – A web-based bridge to AI agents with terminal, file browser, and chat",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js"
+  },
+  "dependencies": {
+    "express": "^4.18.2",
+    "socket.io": "^4.7.4",
+    "node-pty": "^1.0.0",
+    "openai": "^4.28.0",
+    "dotenv": "^16.4.1",
+    "mime-types": "^2.1.35"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "name": "prototype-portal",
+  "version": "1.0.0",
+  "description": "Agentically Portal — Bridge to AI Agents with terminal, file browser, and chat",
+  "main": "src/server.js",
+  "scripts": {
+    "start": "node src/server.js",
+    "dev": "node src/server.js"
+  },
+  "dependencies": {
+    "express": "^4.21.0",
+    "ws": "^8.16.0",
+    "node-pty": "^1.0.0",
+    "@octokit/core": "^6.1.0"
+  }
+}

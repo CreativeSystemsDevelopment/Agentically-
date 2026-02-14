@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Agentically Portal</title>
+  <link rel="stylesheet" href="/css/styles.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/xterm@5.3.0/css/xterm.min.css">
+  <script src="https://cdn.jsdelivr.net/npm/xterm@5.3.0/lib/xterm.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-fit@0.8.0/lib/xterm-addon-fit.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/xterm-addon-web-links@0.9.0/lib/xterm-addon-web-links.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <!-- ── Header ──────────────────────────────────────────────────────── -->
+    <header id="header">
+      <div class="logo">
+        <svg viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-1 17.93c-3.95-.49-7-3.85-7-7.93 0-.62.08-1.21.21-1.79L9 15v1c0 1.1.9 2 2 2v1.93zm6.9-2.54c-.26-.81-1-1.39-1.9-1.39h-1v-3c0-.55-.45-1-1-1H8v-2h2c.55 0 1-.45 1-1V7h2c1.1 0 2-.9 2-2v-.41c2.93 1.19 5 4.06 5 7.41 0 2.08-.8 3.97-2.1 5.39z"/></svg>
+        Agentically
+      </div>
+      <div class="nav-tabs">
+        <button class="nav-tab active" data-panel="chat" onclick="switchPanel('chat')">
+          💬 Chat
+        </button>
+        <button class="nav-tab" data-panel="terminal" onclick="switchPanel('terminal')">
+          💻 Terminal
+        </button>
+        <button class="nav-tab" data-panel="files" onclick="switchPanel('files')">
+          📁 Files
+        </button>
+      </div>
+      <div class="spacer"></div>
+      <button class="settings-btn" onclick="toggleSettings()">⚙️ Settings</button>
+    </header>
+
+    <!-- ── Sidebar: Agent List ─────────────────────────────────────────── -->
+    <aside id="sidebar">
+      <div class="sidebar-header">
+        <span>Agents</span>
+        <button title="Refresh" onclick="loadAgents()">↻</button>
+      </div>
+      <div id="agent-list"></div>
+    </aside>
+
+    <!-- ── Main Content ────────────────────────────────────────────────── -->
+    <main id="main">
+      <!-- Chat Panel -->
+      <div id="chat-panel" class="panel active">
+        <div id="chat-main" style="display:flex;flex-direction:column;flex:1;">
+          <div id="chat-messages"></div>
+          <div id="chat-input-area">
+            <div class="input-wrapper">
+              <textarea id="chat-input" placeholder="Message the agent..." rows="1"
+                onkeydown="handleChatKey(event)"></textarea>
+              <button id="send-btn" onclick="sendMessage()">➤</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Terminal Panel -->
+      <div id="terminal-panel" class="panel">
+        <div class="terminal-toolbar">
+          <div class="conn-status">
+            <span class="status-dot" id="term-status-dot"></span>
+            <span id="term-status-text">Disconnected</span>
+          </div>
+          <div class="spacer" style="flex:1"></div>
+          <button onclick="reconnectTerminal()">Reconnect</button>
+          <button onclick="clearTerminal()">Clear</button>
+        </div>
+        <div id="terminal-container"></div>
+      </div>
+
+      <!-- Files Panel -->
+      <div id="files-panel" class="panel">
+        <div id="file-tree">
+          <div class="file-tree-header">
+            <span>Explorer</span>
+            <button onclick="loadFiles()" title="Refresh">↻</button>
+          </div>
+          <div class="breadcrumb" id="breadcrumb"></div>
+          <div id="file-list"></div>
+        </div>
+        <div id="file-viewer">
+          <div class="file-viewer-header">
+            <span id="file-viewer-title">No file selected</span>
+          </div>
+          <div id="file-content">
+            <div class="file-placeholder">Select a file to view its contents</div>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- ── Settings Modal ──────────────────────────────────────────────── -->
+  <div class="modal-overlay" id="settings-modal">
+    <div class="modal">
+      <div class="modal-header">
+        <span>Settings</span>
+        <button class="close-btn" onclick="toggleSettings()">✕</button>
+      </div>
+      <div class="modal-body">
+        <div class="form-group">
+          <label>GitHub Token</label>
+          <input type="password" id="github-token" placeholder="ghp_...">
+          <div class="hint">Used to authenticate with the Copilot API. Stored in browser only.</div>
+        </div>
+        <div class="form-group">
+          <label>Workspace Root</label>
+          <input type="text" id="workspace-root" value="/workspaces/Agentically-" disabled>
+          <div class="hint">The VM workspace this portal is connected to.</div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button class="btn-secondary" onclick="toggleSettings()">Cancel</button>
+        <button class="btn-primary" onclick="saveSettings()">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="/js/app.js"></script>
+</body>
+</html>
